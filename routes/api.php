@@ -26,3 +26,4 @@ require __DIR__ . '/package/package.php';
 require __DIR__ . '/invoice/invoice.php';
 require __DIR__ . '/role/role.php';
 require __DIR__ . '/client/client.php';
+require __DIR__ . '/subscription/subscription.php';

@@ -11,6 +11,7 @@ use Avatar;
 use App\Notifications\SignupActivate;
 use App\Notifications\SignupSuccess;
 use App\User;
+use App\Role;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -116,6 +117,9 @@ class AuthController extends Controller
 
         $token->save();
 
+        $userinfo = Auth::user();
+        $userinfo->role = Role::where('id', $userinfo->role_id)->get()->first();
+
         return response()->json([
             'success' => true,
             'userData' => [
@@ -123,7 +127,7 @@ class AuthController extends Controller
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
                 'isAuthenticated' => true,
-                'userinfo' => Auth::user()
+                'userinfo' => $userinfo
             ]
         ]);
     }
